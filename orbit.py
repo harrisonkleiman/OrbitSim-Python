@@ -4,8 +4,9 @@ import random
 
 pygame.init()
 
-# Set up users full screen
-SCREEN = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+# Screen is half the size of the screen
+SCREEN =  pygame.display.set_mode((1600, 1000))
+
 WIDTH, HEIGHT = SCREEN.get_size()
 
 
@@ -16,7 +17,7 @@ MER_COL = (219, 206, 202)
 VEN_COL = (255, 198, 73)
 EAR_COL = (100, 149, 237)
 MARS_RED = (188, 39, 50)
-JUP_COL = (64, 68, 54)
+JUP_COL = (255, 203, 164)
 SAT_COL = (123, 120, 105)
 URN_COL = (79, 208, 231)
 NEP_COL = (41, 144, 181)
@@ -62,8 +63,8 @@ class Planet:
         pygame.draw.circle(screen, self.color, (int(x), int(y)), self.radius)
 
         if not self.sun:
-            # Text displays dfs
-            text = FONT.render(f"{self.dis_to_sun:.2f}m", True, WHITE)
+            # Render distance to sun
+            text = FONT.render(f"{round(self.dis_to_sun/1000, 1)}km", 1, WHITE)
             screen.blit(text, (x + self.radius, y - self.radius))
              
         # Screen displays stars. Stars do not move
@@ -95,7 +96,7 @@ class Planet:
         self.orbit.append((self.x, self.y))
 
         # if orbit is too long, remove the first element. 1000 is arbitrary
-        if len(self.orbit) > 1000:
+        if len(self.orbit) > 5000:
             self.orbit.pop(0)
 
         # Calculate the net force on the planet
